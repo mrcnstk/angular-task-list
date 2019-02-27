@@ -1,0 +1,13 @@
+body {
+  font-family: 'Noto Sans', sans-serif;
+}
+li {
+  margin: 10px 0px;
+}
+button {
+  margin: 2px 5px;
+}
+.container {
+  display: flex;
+  justify-content: space-around;
+}
