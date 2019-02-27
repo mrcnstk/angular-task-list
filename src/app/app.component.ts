@@ -6,13 +6,19 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  newTask: string;
+  newTask = '';
   taskList: Array<string> = [];
   doneList: Array<string> = [];
+  info = '';
 
   add() {
+    if (this.newTask === '') {
+      this.info = 'Wprowadź nazwę zadania';
+      return;
+    }
     this.taskList.push(this.newTask);
     this.newTask = '';
+    this.info = '';
     console.log(this.taskList);
   }
 
