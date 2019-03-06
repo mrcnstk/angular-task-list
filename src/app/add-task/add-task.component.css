@@ -1,7 +1,12 @@
 input {
   border-radius: 3px;
 }
-
+div {
+  margin-top: 20px;
+}
 .alert {
   color: red;
+}
+.btn-space {
+  margin: 0 5px;
 }

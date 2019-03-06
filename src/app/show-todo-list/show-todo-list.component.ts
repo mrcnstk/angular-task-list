@@ -1,4 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  ViewEncapsulation
+} from '@angular/core';
 
 @Component({
   selector: 'app-show-todo-list',
@@ -20,8 +27,10 @@ export class ShowTodoListComponent implements OnInit {
   remove(task: string) {
     this.emitRemove.emit(task);
   }
-
   done(task: string) {
     this.emitDone.emit(task);
+  }
+  getColor(): string {
+    return this.tasksList.length >= 5 ? 'red' : 'green';
   }
 }
