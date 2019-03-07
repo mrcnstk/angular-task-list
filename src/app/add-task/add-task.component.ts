@@ -1,3 +1,4 @@
+import { Task } from './../model/task';
 import { TasksService } from './../services/tasks.service';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
@@ -15,11 +16,13 @@ export class AddTaskComponent implements OnInit {
   ngOnInit() {}
 
   add() {
-    if (this.newTask === '') {
+    const task: Task = { name: this.newTask, created: new Date() };
+    if (task.name === '') {
       this.info = 'Wprowadź nazwę zadania ';
       return;
     }
-    this.taskService.addToList(this.newTask);
+
+    this.taskService.addToList(task);
     this.newTask = '';
   }
 }
