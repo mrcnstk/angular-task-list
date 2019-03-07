@@ -22,6 +22,7 @@ export class ShowTodoListComponent implements OnInit {
     this.taskService.remove(task);
   }
   done(task: Task) {
+    task.end = new Date();
     this.taskService.done(task);
   }
   getColor(): string {
