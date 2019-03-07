@@ -1,3 +1,4 @@
+import { TasksService } from './../services/tasks.service';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
@@ -9,10 +10,7 @@ export class AddTaskComponent implements OnInit {
   newTask = '';
   info = '';
 
-  @Output()
-  emitTask = new EventEmitter<string>();
-
-  constructor() {}
+  constructor(private taskService: TasksService) {}
 
   ngOnInit() {}
 
@@ -21,7 +19,7 @@ export class AddTaskComponent implements OnInit {
       this.info = 'Wprowadź nazwę zadania ';
       return;
     }
-    this.emitTask.emit(this.newTask);
+    this.taskService.addToList(this.newTask);
     this.newTask = '';
   }
 }

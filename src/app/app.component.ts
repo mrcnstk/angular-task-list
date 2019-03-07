@@ -9,6 +9,16 @@ export class AppComponent {
   taskList: Array<string> = [];
   doneList: Array<string> = [];
 
+  ngOnInit(): void {
+    this.taskList = [
+      'Śniadanie',
+      'Sprzątanie mieszkania',
+      'Kodowanie',
+      'Bieganie',
+      'Ćwiczenia'
+    ];
+  }
+
   addToList(task: string) {
     this.taskList.push(task);
   }

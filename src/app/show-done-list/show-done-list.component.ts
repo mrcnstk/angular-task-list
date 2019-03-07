@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { TasksService } from './../services/tasks.service';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-show-done-list',
@@ -6,10 +7,13 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./show-done-list.component.css']
 })
 export class ShowDoneListComponent implements OnInit {
-  @Input()
   ChildDoneList = [];
 
-  constructor() {}
+  constructor(private taskService: TasksService) {
+    this.taskService.getDoneListObs().subscribe((tasks: Array<string>) => {
+      this.ChildDoneList = tasks;
+    });
+  }
 
   ngOnInit() {}
 }

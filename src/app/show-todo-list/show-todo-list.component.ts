@@ -1,11 +1,5 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  Output,
-  EventEmitter,
-  ViewEncapsulation
-} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { TasksService } from '../services/tasks.service';
 
 @Component({
   selector: 'app-show-todo-list',
@@ -13,22 +7,21 @@ import {
   styleUrls: ['./show-todo-list.component.css']
 })
 export class ShowTodoListComponent implements OnInit {
-  @Input()
   tasksList = [];
-  @Output()
-  emitDone = new EventEmitter<string>();
-  @Output()
-  emitRemove = new EventEmitter<string>();
 
-  constructor() {}
+  constructor(private taskService: TasksService) {
+    this.taskService.getTaskListObs().subscribe((tasks: Array<string>) => {
+      this.tasksList = tasks;
+    });
+  }
 
   ngOnInit() {}
 
   remove(task: string) {
-    this.emitRemove.emit(task);
+    this.taskService.remove(task);
   }
   done(task: string) {
-    this.emitDone.emit(task);
+    this.taskService.done(task);
   }
   getColor(): string {
     return this.tasksList.length >= 5 ? 'red' : 'green';
