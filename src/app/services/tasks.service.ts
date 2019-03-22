@@ -5,12 +5,16 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable()
 export class TasksService {
+  DatabaseSave = false;
   private taskListObs = new BehaviorSubject<Array<Task>>([]);
 
   constructor(private httpService: HttpService) {
     this.httpService.getTask().subscribe(list => {
       this.taskListObs.next(list);
     });
+  }
+  savingStatus(status: boolean) {
+    this.DatabaseSave = status;
   }
 
   addToList(task: Task) {
@@ -33,9 +37,11 @@ export class TasksService {
     return this.taskListObs.asObservable();
   }
   saveTaskInDb() {
+    this.savingStatus(false);
     this.httpService.saveTasks(this.taskListObs.getValue());
     this.httpService.getTask().subscribe(list => {
       this.taskListObs.next(list);
+      this.savingStatus(true);
     });
   }
 }

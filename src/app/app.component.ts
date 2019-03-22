@@ -7,9 +7,14 @@ import { TasksService } from './services/tasks.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  show = 'none';
   constructor(private taskService: TasksService) {}
 
   save() {
+    this.show = 'block';
     this.taskService.saveTaskInDb();
+  }
+  infoColor(): string {
+    return this.taskService.DatabaseSave === true ? 'green' : 'red';
   }
 }

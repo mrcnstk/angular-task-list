@@ -26,7 +26,7 @@ export class HttpService {
     );
   }
   saveTasks(list: Array<Task>) {
-    let id = list.map(index => index._id);
+    const id = list.map(index => index._id);
     for (let i = 0; i < id.length; i++) {
       if (id[i] === undefined) {
         this.http
