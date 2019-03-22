@@ -6,10 +6,10 @@
     <li
       appDate
       [date]="task.created"
-      *ngFor="let task of tasksList; let odd = odd"
+      *ngFor="let task of (tasksList | sortName); let odd = odd"
       [ngClass]="{ 'odd-li': odd === true, 'last-li': tasksList.length === 1 }"
     >
-      {{ task.name }}
+      {{ task.name | transformTask: '!' }}
       <button
         type="button"
         class="btn btn-space btn-warning "

@@ -12,7 +12,7 @@ export class ShowTodoListComponent implements OnInit {
 
   constructor(private taskService: TasksService) {
     this.taskService.getTaskListObs().subscribe((tasks: Array<Task>) => {
-      this.tasksList = tasks;
+      this.tasksList = tasks.filter(t => t.isDone === false);
     });
   }
 
@@ -22,7 +22,6 @@ export class ShowTodoListComponent implements OnInit {
     this.taskService.remove(task);
   }
   done(task: Task) {
-    task.end = new Date();
     this.taskService.done(task);
   }
   getColor(): string {

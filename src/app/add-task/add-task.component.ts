@@ -16,11 +16,16 @@ export class AddTaskComponent implements OnInit {
   ngOnInit() {}
 
   add() {
-    const task: Task = { name: this.newTask, created: new Date() };
+    const task: Task = {
+      name: this.newTask,
+      created: new Date().toLocaleString(),
+      isDone: false
+    };
     if (task.name === '') {
       this.info = 'Wprowadź nazwę zadania ';
       return;
     }
+    console.log(task);
 
     this.taskService.addToList(task);
     this.newTask = '';

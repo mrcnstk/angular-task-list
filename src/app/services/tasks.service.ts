@@ -1,48 +1,41 @@
+import { HttpService } from './http.service';
 import { Task } from './../model/task';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable()
 export class TasksService {
-  private taskList: Array<Task> = [];
-  private doneList: Array<Task> = [];
-
   private taskListObs = new BehaviorSubject<Array<Task>>([]);
-  private doneListObs = new BehaviorSubject<Array<Task>>([]);
 
-  constructor() {
-    this.taskList = [
-      { name: 'Śniadanie', created: new Date() },
-      { name: 'Sprzątanie mieszkania', created: new Date() },
-      { name: 'Kodowanie', created: new Date() },
-      { name: 'Bieganie', created: new Date() },
-      { name: 'Ćwiczenia', created: new Date() }
-    ];
-    this.taskListObs.next(this.taskList);
+  constructor(private httpService: HttpService) {
+    this.httpService.getTask().subscribe(list => {
+      this.taskListObs.next(list);
+    });
   }
 
   addToList(task: Task) {
-    this.taskList.push(task);
-    this.taskListObs.next(this.taskList);
-  }
-  addToDone(task: Task) {
-    this.doneList.push(task);
-    this.doneListObs.next(this.doneList);
+    const list = this.taskListObs.getValue();
+    list.push(task);
+    this.taskListObs.next(list);
   }
   done(task: Task) {
-    this.doneList.push(task);
-    this.remove(task);
-    this.doneListObs.next(this.doneList);
+    task.end = new Date().toLocaleString();
+    task.isDone = true;
+    const list = this.taskListObs.getValue();
+    this.taskListObs.next(list);
   }
   remove(task: Task) {
-    this.taskList = this.taskList.filter(e => e !== task);
-    this.taskListObs.next(this.taskList);
+    const taskList = this.taskListObs.getValue().filter(e => e !== task);
+    this.taskListObs.next(taskList);
   }
 
   getTaskListObs(): Observable<Array<Task>> {
     return this.taskListObs.asObservable();
   }
-  getDoneListObs(): Observable<Array<Task>> {
-    return this.doneListObs.asObservable();
+  saveTaskInDb() {
+    this.httpService.saveTasks(this.taskListObs.getValue());
+    this.httpService.getTask().subscribe(list => {
+      this.taskListObs.next(list);
+    });
   }
 }

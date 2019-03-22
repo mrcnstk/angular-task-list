@@ -6,6 +6,6 @@ Zadania wykonane: {{ ChildDoneList.length }}
     [date]="taskDone.end"
     *ngFor="let taskDone of ChildDoneList"
   >
-    {{ taskDone.name }}
+    {{ taskDone.name | transformTask: '- dobra robota!' }}
   </li>
 </ul>

@@ -11,8 +11,8 @@ export class ShowDoneListComponent implements OnInit {
   ChildDoneList: Array<Task> = [];
 
   constructor(private taskService: TasksService) {
-    this.taskService.getDoneListObs().subscribe((tasks: Array<Task>) => {
-      this.ChildDoneList = tasks;
+    this.taskService.getTaskListObs().subscribe((tasks: Array<Task>) => {
+      this.ChildDoneList = tasks.filter(t => t.isDone === true);
     });
   }
 
