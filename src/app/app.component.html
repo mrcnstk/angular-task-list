@@ -1,29 +1,15 @@
-<div>
-  <div class="container">
-    <app-add-task></app-add-task>
-  </div>
-
-  <div class="container">
-    <div>
-      <app-show-todo-list></app-show-todo-list>
-    </div>
-    <div>
-      <app-show-done-list></app-show-done-list>
-    </div>
-  </div>
-  <div class="container">
-    <button (click)="save()">Zapisz do bazy danych</button>
-  </div>
-  <div class="container">
-    <div [style.display]="show">
-      <ng-container *ngIf="this.taskService.DatabaseSave; else DatabaseSaved">
-        <p [ngStyle]="{ color: infoColor() }">Zapisano w bazie!</p>
-      </ng-container>
-      <ng-template #DatabaseSaved>
-        <p [ngStyle]="{ color: infoColor() }">
-          Zapis do bazy w toku...
-        </p></ng-template
-      >
-    </div>
-  </div>
+<ul class="nav nav-pills justify-content-center">
+  <li class="nav-item">
+    <a class="nav-link" routerLink="todoTask" routerLinkActive="active"
+      >Do zrobienia</a
+    >
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" routerLink="doneTask" routerLinkActive="active"
+      >Wykonane</a
+    >
+  </li>
+</ul>
+<div class="container">
+  <router-outlet></router-outlet>
 </div>

@@ -1,3 +1,4 @@
+<app-add-task></app-add-task>
 <ng-container *ngIf="tasksList.length > 0; else noTask">
   <p [ngStyle]="{ color: getColor() }">
     Zadania do wykonania: {{ tasksList.length }}
@@ -7,7 +8,10 @@
       appDate
       [date]="task.created"
       *ngFor="let task of (tasksList | sortName); let odd = odd"
-      [ngClass]="{ 'odd-li': odd === true, 'last-li': tasksList.length === 1 }"
+      [ngClass]="{
+        'odd-li': odd === true,
+        'last-li': tasksList.length === 1
+      }"
     >
       {{ task.name | transformTask: '!' }}
       <button
@@ -28,3 +32,18 @@
   </ul>
 </ng-container>
 <ng-template #noTask>Brak zadań do wykonania</ng-template>
+<button (click)="save()">
+  Zapisz do bazy danych
+</button>
+<div class="container">
+  <div [style.display]="show">
+    <ng-container *ngIf="this.taskService.DatabaseSave; else DatabaseSaved">
+      <p [ngStyle]="{ color: infoColor() }">Zapisano w bazie!</p>
+    </ng-container>
+    <ng-template #DatabaseSaved>
+      <p [ngStyle]="{ color: infoColor() }">
+        Zapis do bazy w toku...
+      </p></ng-template
+    >
+  </div>
+</div>

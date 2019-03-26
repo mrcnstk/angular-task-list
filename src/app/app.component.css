@@ -1,10 +1,7 @@
 li {
-  margin: 5px 0px;
+  margin: 0px 0px;
 }
 .container {
   display: flex;
-  justify-content: space-around;
-}
-#info {
-  display: none;
+  justify-content: center;
 }

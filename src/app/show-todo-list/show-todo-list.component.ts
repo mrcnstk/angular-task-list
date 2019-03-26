@@ -9,7 +9,7 @@ import { Task } from '../model/task';
 })
 export class ShowTodoListComponent implements OnInit {
   tasksList: Array<Task> = [];
-
+  show = 'none';
   constructor(private taskService: TasksService) {
     this.taskService.getTaskListObs().subscribe((tasks: Array<Task>) => {
       this.tasksList = tasks.filter(t => t.isDone === false);
@@ -26,5 +26,12 @@ export class ShowTodoListComponent implements OnInit {
   }
   getColor(): string {
     return this.tasksList.length >= 5 ? 'red' : 'green';
+  }
+  save() {
+    this.show = 'block';
+    this.taskService.saveTaskInDb();
+  }
+  infoColor(): string {
+    return this.taskService.DatabaseSave === true ? 'green' : 'red';
   }
 }

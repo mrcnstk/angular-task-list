@@ -1,3 +1,4 @@
+import { AppRoutingModule } from './app.routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -25,7 +26,7 @@ import { HttpService } from './services/http.service';
     TransformTaskPipe,
     SortNamePipe
   ],
-  imports: [BrowserModule, FormsModule, HttpClientModule],
+  imports: [BrowserModule, FormsModule, HttpClientModule, AppRoutingModule],
   providers: [TasksService, HttpService],
   bootstrap: [AppComponent]
 })
