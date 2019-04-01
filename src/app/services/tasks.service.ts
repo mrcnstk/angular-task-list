@@ -17,9 +17,8 @@ export class TasksService {
     this.DatabaseSave = status;
   }
 
-  addToList(task: Task) {
-    const list = this.taskListObs.getValue();
-    list.push(task);
+  addToList(task: Array<Task>) {
+    const list = this.taskListObs.getValue().concat(task);
     this.taskListObs.next(list);
   }
   done(task: Task) {

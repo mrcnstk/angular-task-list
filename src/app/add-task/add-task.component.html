@@ -1,5 +1,26 @@
-<span class="alert">{{ info }}</span>
-<input type="text" [(ngModel)]="newTask" />
-<button type="button" class="btn btn-space btn-secondary" (click)="add()">
-  Dodaj
-</button>
+<div>
+  <form [formGroup]="addForm" (ngSubmit)="add()">
+    <div formArrayName="taskName">
+      <div
+        *ngFor="let task of addForm.get('taskName')['controls']; let i = index"
+      >
+        {{ i + 1 }}.
+        <input type="text" [formControlName]="i" style="margin: 2px" />
+      </div>
+    </div>
+    <button
+      type="submit"
+      [disabled]="addForm.invalid"
+      class="btn btn-space btn-secondary"
+    >
+      Dodaj
+    </button>
+    <button
+      type="button"
+      (click)="addField()"
+      class="btn btn-space btn-secondary"
+    >
+      Dodaj więcej zadań
+    </button>
+  </form>
+</div>

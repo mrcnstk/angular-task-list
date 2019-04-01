@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddTaskComponent } from './add-task/add-task.component';
 import { ShowTodoListComponent } from './show-todo-list/show-todo-list.component';
 import { ShowDoneListComponent } from './show-done-list/show-done-list.component';
@@ -26,7 +26,13 @@ import { HttpService } from './services/http.service';
     TransformTaskPipe,
     SortNamePipe
   ],
-  imports: [BrowserModule, FormsModule, HttpClientModule, AppRoutingModule],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpClientModule,
+    AppRoutingModule,
+    ReactiveFormsModule
+  ],
   providers: [TasksService, HttpService],
   bootstrap: [AppComponent]
 })
