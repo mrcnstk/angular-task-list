@@ -9,6 +9,18 @@
       >Wykonane</a
     >
   </li>
+  <li class="nav-item">
+    <a
+      class="nav-link"
+      *ngIf="!authService.user"
+      routerLink="login"
+      routerLinkActive="active"
+      >Zaloguj</a
+    >
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" *ngIf="authService.user" (click)="logout()">Wyloguj</a>
+  </li>
 </ul>
 <div class="container">
   <router-outlet></router-outlet>

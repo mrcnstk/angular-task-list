@@ -1,0 +1,18 @@
+<form (ngSubmit)="login(formData)" #formData="ngForm">
+  <div style="display: inline-grid; margin: 10px">
+    <label>E-mail</label>
+    <input ngModel type="email" name="email" required />
+
+    <label>Hasło</label>
+    <input ngModel type="password" name="password" required />
+
+    <button type="submit" [disabled]="!formData.valid">Zaloguj</button>
+    <button
+      type="button"
+      [disabled]="!formData.valid"
+      (click)="signin(formData)"
+    >
+      Zarejestruj
+    </button>
+  </div>
+</form>

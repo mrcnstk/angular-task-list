@@ -1,3 +1,5 @@
+import { AuthGuardService } from './auth/auth-guard.service';
+import { AuthService } from './auth/auth.service';
 import { AppRoutingModule } from './app.routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -14,6 +16,18 @@ import { TransformTaskPipe } from './shared/transform-task.pipe';
 import { SortNamePipe } from './shared/sort-name.pipe';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpService } from './services/http.service';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { LoginComponent } from './auth/login/login.component';
+
+const config = {
+  apiKey: 'AIzaSyCU69Kr0-NvJj5mSmWuWLDQLgVbJmOP8KI',
+  authDomain: 'todo-list-ang.firebaseapp.com',
+  databaseURL: 'https://todo-list-ang.firebaseio.com',
+  projectId: 'todo-list-ang',
+  storageBucket: 'todo-list-ang.appspot.com',
+  messagingSenderId: '862361397925'
+};
 
 @NgModule({
   declarations: [
@@ -24,16 +38,19 @@ import { HttpService } from './services/http.service';
     CheckedDirective,
     DateDirective,
     TransformTaskPipe,
-    SortNamePipe
+    SortNamePipe,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularFireModule.initializeApp(config),
+    AngularFireAuthModule
   ],
-  providers: [TasksService, HttpService],
+  providers: [TasksService, HttpService, AuthService, AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
