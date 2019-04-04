@@ -2,13 +2,27 @@ import { HttpService } from './http.service';
 import { Task } from './../model/task';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Injectable()
 export class TasksService {
   DatabaseSave = false;
   private taskListObs = new BehaviorSubject<Array<Task>>([]);
 
-  constructor(private httpService: HttpService) {
+  constructor(
+    private httpService: HttpService,
+    public angularFire: AngularFireAuth
+  ) {
+    angularFire.authState.subscribe(user => {
+      if (user) {
+        this.init();
+      } else {
+        this.taskListObs.next([]);
+      }
+    });
+  }
+
+  init() {
     this.httpService.getTask().subscribe(list => {
       this.taskListObs.next(list);
     });
@@ -29,6 +43,7 @@ export class TasksService {
   }
   remove(task: Task) {
     const taskList = this.taskListObs.getValue().filter(e => e !== task);
+    this.httpService.deleteTask(task);
     this.taskListObs.next(taskList);
   }
 

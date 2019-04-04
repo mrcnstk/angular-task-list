@@ -9,7 +9,7 @@ import { User } from 'firebase';
 export class AuthService {
   user: User;
 
-  constructor(private angularFire: AngularFireAuth, private router: Router) {
+  constructor(public angularFire: AngularFireAuth, private router: Router) {
     angularFire.authState.subscribe(user => {
       this.user = user;
     });
