@@ -1,21 +1,20 @@
 <ul class="nav nav-pills justify-content-center">
   <li class="nav-item">
-    <a class="nav-link" routerLink="todoTask" routerLinkActive="active"
+    <a
+      class="nav-link"
+      *ngIf="authService.user"
+      routerLink="todoTask"
+      routerLinkActive="active"
       >Do zrobienia</a
-    >
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" routerLink="doneTask" routerLinkActive="active"
-      >Wykonane</a
     >
   </li>
   <li class="nav-item">
     <a
       class="nav-link"
-      *ngIf="!authService.user"
-      routerLink="login"
+      *ngIf="authService.user"
+      routerLink="doneTask"
       routerLinkActive="active"
-      >Zaloguj</a
+      >Wykonane</a
     >
   </li>
   <li class="nav-item">

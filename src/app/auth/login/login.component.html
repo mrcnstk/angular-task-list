@@ -1,18 +1,31 @@
-<form (ngSubmit)="login(formData)" #formData="ngForm">
-  <div style="display: inline-grid; margin: 10px">
-    <label>E-mail</label>
-    <input ngModel type="email" name="email" required />
-
-    <label>Hasło</label>
-    <input ngModel type="password" name="password" required />
-
-    <button type="submit" [disabled]="!formData.valid">Zaloguj</button>
-    <button
-      type="button"
-      [disabled]="!formData.valid"
-      (click)="signup(formData)"
-    >
-      Zarejestruj
-    </button>
+<div class="top" *ngIf="this.authService.user">
+  <img src="../../../assets/angularLogo.png" alt="Angular Logo" />
+  <h4>Organizer zadań</h4>
+  <p>
+    Jesteś aktualnie zalogowany! wróć do swoich zadań za pomocą menu powyżej
+  </p>
+</div>
+<div *ngIf="!this.authService.user">
+  <div class="top">
+    <img src="../../../assets/angularLogo.png" alt="Angular Logo" />
+    <h4>Organizer zadań</h4>
   </div>
-</form>
+  <div class="loginForm">
+    <form (ngSubmit)="login(formData)" #formData="ngForm">
+      <div style="display: inline-grid; margin: 10px">
+        <span class="label">E-MAIL</span>
+        <input ngModel type="email" name="email" required />
+
+        <span class="label">HASŁO</span>
+
+        <input ngModel type="password" name="password" required />
+        <div class="buttonsForm">
+          <button type="submit">Zaloguj</button>
+          <button type="button" (click)="signup(formData)">
+            Zarejestruj
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
